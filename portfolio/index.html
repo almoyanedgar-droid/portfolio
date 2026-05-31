@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Fashion Visual Development</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#F7F7F5;--black:#111111;--mid:#444444;
+  --secondary:#666666;--div:#E5E5E5;--white:#ffffff;
+  --f:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--black);font-family:var(--f);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 56px}
+@media(max-width:768px){.wrap{padding:0 24px}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;transition:background .4s,border .4s}
+.nav-i{display:flex;justify-content:space-between;align-items:center;height:52px;max-width:1280px;margin:0 auto;padding:0 56px}
+.nav-logo{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--black)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--secondary);text-decoration:none;transition:color .25s}
+.nav-links a:hover{color:var(--black)}
+.nav-dark .nav-logo,.nav-dark .nav-links a{color:rgba(255,255,255,.5)}
+.nav-dark .nav-links a:hover{color:var(--white)}
+.nav-dark .nav-logo{color:var(--white)}
+.nav-scrolled{background:rgba(247,247,245,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--div)}
+.nav-scrolled.nav-dark{background:rgba(10,10,10,.93);border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-mob{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.nav-mob span{width:20px;height:1px;background:currentColor;display:block}
+
+/* SECTIONS */
+section{padding:112px 0}
+.s-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--secondary);margin-bottom:10px;display:block}
+.s-head{font-size:clamp(30px,3.8vw,48px);font-weight:300;letter-spacing:-.025em;line-height:1.04;margin-bottom:56px}
+.s-head b{font-weight:500}
+
+/* INTRO */
+#intro{padding:0;height:100vh;min-height:640px;display:flex;flex-direction:column;background:var(--black);position:relative;overflow:hidden}
+.intro-img{flex:1;position:relative;overflow:hidden}
+.intro-img-inner{position:absolute;inset:0;background:#111;display:flex;align-items:center;justify-content:center}
+.intro-img-inner img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(.75)}
+.intro-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,rgba(0,0,0,.05) 55%,transparent 100%)}
+.intro-bottom{position:relative;z-index:2;padding:40px 56px 48px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;border-top:1px solid rgba(255,255,255,.08)}
+.intro-h{font-size:clamp(32px,5.5vw,64px);font-weight:300;color:var(--white);letter-spacing:-.03em;line-height:.98}
+.intro-h b{font-weight:500}
+.intro-right{display:flex;flex-direction:column;justify-content:flex-end;gap:24px}
+.intro-statement{font-size:14px;font-weight:300;color:rgba(255,255,255,.45);line-height:1.75;font-style:italic;max-width:340px}
+.intro-meta{display:flex;border-top:1px solid rgba(255,255,255,.1);padding-top:20px}
+.intro-meta-item{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.22);padding-right:24px;margin-right:24px;border-right:1px solid rgba(255,255,255,.1)}
+.intro-meta-item:last-child{border-right:none}
+
+/* APPROACH */
+#approach{background:var(--bg)}
+.approach-top{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start;border-top:1px solid var(--div);padding-top:56px}
+.approach-stmt{font-size:clamp(20px,2.4vw,30px);font-weight:300;letter-spacing:-.02em;line-height:1.35}
+.approach-stmt b{font-weight:500}
+.approach-body p{font-size:13px;line-height:1.95;color:var(--secondary);font-weight:300}
+.approach-body p+p{margin-top:18px}
+.approach-body b{color:var(--black);font-weight:400}
+.scope-wrap{margin-top:64px;border-top:1px solid var(--div);padding-top:40px}
+.scope-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--secondary);margin-bottom:20px}
+.scope-items{display:flex;flex-wrap:wrap;gap:8px}
+.scope-item{font-size:11px;letter-spacing:.06em;border:1px solid var(--div);padding:9px 18px;color:var(--mid);transition:border-color .25s,color .25s;cursor:default}
+.scope-item:hover{border-color:#999;color:var(--black)}
+
+/* CAPABILITIES */
+#capabilities{background:var(--white);padding:96px 0}
+.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--div)}
+.cap-cell{padding:36px 28px 36px 0;border-right:1px solid var(--div)}
+.cap-cell:last-child{border-right:none;padding-right:0}
+.cap-n{font-size:9px;letter-spacing:.2em;color:var(--secondary);margin-bottom:20px;display:block}
+.cap-name{font-size:15px;font-weight:500;letter-spacing:-.01em;margin-bottom:10px;line-height:1.2}
+.cap-desc{font-size:12px;line-height:1.8;color:var(--secondary);font-weight:300}
+
+/* PROCESS */
+#process{background:var(--bg);padding:96px 0}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--div)}
+.proc-cell{padding:36px 28px 36px 0;border-right:1px solid var(--div)}
+.proc-cell:last-child{border-right:none;padding-right:0}
+.proc-n{font-size:9px;letter-spacing:.2em;color:var(--secondary);margin-bottom:20px;display:block}
+.proc-title{font-size:15px;font-weight:500;letter-spacing:-.01em;margin-bottom:10px}
+.proc-desc{font-size:12px;line-height:1.8;color:var(--secondary);font-weight:300}
+
+/* TWO DIRECTIONS */
+#directions{background:var(--black);padding:112px 0}
+.dir-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;padding-bottom:56px}
+.dir-intro-h{font-size:clamp(28px,3.5vw,44px);font-weight:300;color:var(--white);letter-spacing:-.025em;line-height:1.04}
+.dir-intro-h b{font-weight:500}
+.dir-intro-text{font-size:13px;line-height:1.85;color:rgba(255,255,255,.38);font-weight:300}
+.dir-cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.07)}
+.dir-card{background:var(--black);padding:56px 48px}
+.dir-lbl{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:28px;display:block}
+.dir-name{font-size:clamp(26px,3vw,40px);font-weight:300;color:var(--white);letter-spacing:-.02em;line-height:1.04;margin-bottom:20px}
+.dir-name b{font-weight:500}
+.dir-desc{font-size:12px;line-height:1.85;color:rgba(255,255,255,.38);margin-bottom:32px;font-weight:300}
+.dir-tags{display:flex;flex-wrap:wrap;gap:6px}
+.dir-tag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(255,255,255,.1);padding:7px 13px;color:rgba(255,255,255,.28)}
+
+/* GALLERY SECTIONS */
+.gallery-section{padding:80px 0 0}
+.gal-header{padding:0 56px;margin-bottom:32px}
+.gal-title-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.gal-title{font-size:clamp(20px,2.5vw,32px);font-weight:300;letter-spacing:-.02em}
+.gal-title b{font-weight:500}
+.gal-subtitle{font-size:11px;color:var(--secondary);letter-spacing:.04em;max-width:480px;line-height:1.7;margin-top:8px}
+.gal-hint{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--secondary)}
+.h-track{display:flex;gap:2px;overflow-x:auto;padding:0 56px 0;scroll-snap-type:x mandatory;cursor:grab;-ms-overflow-style:none;scrollbar-width:none}
+.h-track::-webkit-scrollbar{display:none}
+.h-track:active{cursor:grabbing}
+.gal-card{flex:0 0 auto;width:280px;scroll-snap-align:start}
+.gal-img-wrap{overflow:hidden;width:100%;aspect-ratio:3/4;position:relative}
+.gal-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .7s cubic-bezier(.25,.46,.45,.94)}
+.gal-card:hover .gal-img-wrap img{transform:scale(1.02)}
+.gal-cap{padding:12px 0 32px}
+.gal-cap-t{font-size:11px;font-weight:500;letter-spacing:-.01em;color:var(--black)}
+.gal-cap-s{font-size:10px;color:var(--secondary);margin-top:3px}
+/* dark bg for creative expansion */
+.gal-dark{background:var(--black)}
+.gal-dark .gal-title,.gal-dark .gal-hint{color:var(--white)}
+.gal-dark .gal-subtitle,.gal-dark .gal-cap-t{color:rgba(255,255,255,.6)}
+.gal-dark .gal-cap-s{color:rgba(255,255,255,.3)}
+.h-progress{height:1px;margin:0 56px 60px;position:relative;overflow:hidden}
+.h-thumb{height:1px;width:0%;position:absolute;left:0;top:0;transition:width .08s,left .08s}
+.h-end{flex:0 0 56px}
+
+/* COLLAB */
+#collab{background:var(--bg)}
+.collab-grid{display:grid;grid-template-columns:4fr 8fr;gap:80px;border-top:1px solid var(--div);padding-top:56px;align-items:start}
+.collab-note{font-size:12px;line-height:1.85;color:var(--secondary)}
+.collab-cols{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--div)}
+.collab-col{padding-top:28px;padding-right:32px;border-right:1px solid var(--div)}
+.collab-col:last-child{border-right:none;padding-left:32px;padding-right:0}
+.collab-col-t{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--secondary);margin-bottom:20px}
+.collab-list{list-style:none}
+.collab-list li{font-size:13px;font-weight:300;padding:11px 0;border-bottom:1px solid var(--div);color:var(--black)}
+.collab-list li:last-child{border-bottom:none}
+.collab-stmt{margin-top:40px;padding-top:32px;border-top:1px solid var(--div);font-size:13px;line-height:1.85;color:var(--secondary);font-style:italic}
+
+/* DELIVERY */
+#delivery{background:var(--white)}
+.delivery-grid{display:grid;grid-template-columns:4fr 8fr;gap:80px;border-top:1px solid var(--div);padding-top:56px;align-items:start}
+.del-cols{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--div)}
+.del-col{padding-top:28px;padding-right:24px;border-right:1px solid var(--div)}
+.del-col:last-child{border-right:none}
+.del-col:not(:first-child){padding-left:24px}
+.del-col-t{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--secondary);margin-bottom:16px}
+.del-list{list-style:none}
+.del-list li{font-size:12px;font-weight:300;padding:9px 0;border-bottom:1px solid var(--div);color:var(--black)}
+.del-list li:last-child{border-bottom:none}
+.res-tags{margin-top:32px;display:flex;gap:8px}
+.res-tag{font-size:10px;letter-spacing:.1em;border:1px solid var(--div);padding:8px 16px;color:var(--mid)}
+
+/* CONTACT */
+#contact{background:var(--black);padding:112px 0 72px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;padding-bottom:72px;border-bottom:1px solid rgba(255,255,255,.07)}
+.contact-h{font-size:clamp(36px,5vw,64px);font-weight:300;color:var(--white);letter-spacing:-.03em;line-height:.98}
+.contact-h b{font-weight:500;display:block}
+.contact-links{list-style:none}
+.contact-links li{border-bottom:1px solid rgba(255,255,255,.07)}
+.contact-links a{display:flex;justify-content:space-between;align-items:center;padding:19px 0;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .25s}
+.contact-links a:hover{color:var(--white)}
+.contact-loc{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:24px}
+.contact-foot{display:flex;justify-content:space-between;align-items:center;padding-top:32px}
+.foot-txt{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.18)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .cap-grid,.proc-grid{grid-template-columns:1fr 1fr}
+  .cap-cell:nth-child(2),.proc-cell:nth-child(2){border-right:none}
+  .cap-cell:nth-child(3),.proc-cell:nth-child(3){border-top:1px solid var(--div);padding-top:32px;border-right:1px solid var(--div)}
+  .cap-cell:nth-child(4),.proc-cell:nth-child(4){border-right:none;border-top:1px solid var(--div);padding-top:32px}
+  .del-cols{grid-template-columns:1fr 1fr}
+  .del-col:nth-child(2){border-right:none}
+  .del-col:nth-child(3){grid-column:span 2;border-right:none;border-top:1px solid var(--div)}
+}
+@media(max-width:768px){
+  .nav-i{padding:0 24px}
+  .nav-links{display:none}
+  .nav-mob{display:flex}
+  section{padding:72px 0}
+  #directions,#contact{padding:72px 0}
+  .gallery-section{padding:56px 0 0}
+  .intro-bottom{grid-template-columns:1fr;padding:32px 24px 36px;gap:20px}
+  .approach-top,.collab-grid,.delivery-grid,.dir-intro,.contact-grid{grid-template-columns:1fr;gap:40px}
+  .cap-grid,.proc-grid{grid-template-columns:1fr}
+  .cap-cell,.proc-cell{border-right:none!important;border-top:1px solid var(--div);padding:28px 0!important}
+  .cap-cell:first-child,.proc-cell:first-child{border-top:none}
+  .dir-cards{grid-template-columns:1fr}
+  .dir-card{padding:40px 24px}
+  .collab-cols,.del-cols{grid-template-columns:1fr}
+  .collab-col,.del-col{border-right:none!important;padding:24px 0!important}
+  .gal-header,.h-track,.h-progress{padding-left:24px;padding-right:24px}
+  .h-track{padding-left:24px}
+  .gal-card{width:220px}
+  .contact-grid{padding-bottom:40px}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav" class="nav-dark">
+  <div class="nav-i">
+    <div class="nav-logo">Fashion Visual Development</div>
+    <ul class="nav-links">
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#gallery-rr">Work</a></li>
+      <li><a href="#collab">Collaboration</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-mob"><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- INTRO — using image 18 (face/mask) as atmospheric hero -->
+<section id="intro">
+  <div class="intro-img">
+    <div class="intro-img-inner">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+           id="heroImg" alt="Fashion Visual Development"
+           style="display:none"/>
+      <!-- Fallback atmospheric bg -->
+      <div id="heroBg" style="position:absolute;inset:0;background:linear-gradient(160deg,#1a1a1a 0%,#0d0d0d 100%)"></div>
+    </div>
+    <div class="intro-overlay"></div>
+  </div>
+  <div class="intro-bottom">
+    <div>
+      <h1 class="intro-h">Fashion<br><b>Visual</b><br>Development</h1>
+      <div class="intro-meta">
+        <span class="intro-meta-item">AI-Assisted</span>
+        <span class="intro-meta-item">Creative Production</span>
+        <span class="intro-meta-item">Armenia / Worldwide</span>
+      </div>
+    </div>
+    <div class="intro-right">
+      <p class="intro-statement">We can preserve reality.<br>Or we can expand it.<br>The direction depends<br>on the goals of the brand.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach">
+  <div class="wrap">
+    <span class="s-label">Approach</span>
+    <div class="approach-top">
+      <div>
+        <p class="approach-stmt">AI as a <b>creative medium.</b><br>Not a replacement<br>for photography.</p>
+      </div>
+      <div class="approach-body">
+        <p>We develop visual directions, campaigns, concepts and creative content for fashion brands. Our work can begin from existing photography, product imagery, references, moodboards, campaign concepts, new collections or completely new creative directions.</p>
+        <p>The process adapts to the project. Not the other way around.</p>
+        <p>Technology supports the process. <b>Creative direction remains the foundation.</b> Every project begins with understanding the product, the brand and the desired emotional response.</p>
+      </div>
+    </div>
+    <div class="scope-wrap">
+      <div class="scope-label">Creative Scope</div>
+      <div class="scope-items">
+        <span class="scope-item">Product Development</span>
+        <span class="scope-item">Model Development</span>
+        <span class="scope-item">Environment Creation</span>
+        <span class="scope-item">Campaign Concepts</span>
+        <span class="scope-item">Visual Storytelling</span>
+        <span class="scope-item">Collection Presentation</span>
+        <span class="scope-item">AI Motion</span>
+        <span class="scope-item">Creative Exploration</span>
+        <span class="scope-item">Visual Research</span>
+        <span class="scope-item">Brand Development</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities">
+  <div class="wrap">
+    <span class="s-label">Creative Capabilities</span>
+    <h2 class="s-head">What we <b>develop</b></h2>
+    <div class="cap-grid">
+      <div class="cap-cell"><span class="cap-n">01</span><h3 class="cap-name">Refined Realism</h3><p class="cap-desc">High-end visual development focused on realism, consistency and premium presentation. Product accuracy maintained while elevating visual quality.</p></div>
+      <div class="cap-cell"><span class="cap-n">02</span><h3 class="cap-name">Creative Storytelling</h3><p class="cap-desc">Visual concepts developed beyond traditional photography. Memorable experiences that strengthen brand identity and audience engagement.</p></div>
+      <div class="cap-cell"><span class="cap-n">03</span><h3 class="cap-name">AI Motion</h3><p class="cap-desc">Creative directions extended into motion — short-form content, campaign videos, animated concepts and product storytelling sequences.</p></div>
+      <div class="cap-cell"><span class="cap-n">04</span><h3 class="cap-name">Campaign Development</h3><p class="cap-desc">Full campaign production from concept to final assets. Visual systems, collection presentation and brand visual development at scale.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <span class="s-label">How We Develop Projects</span>
+    <h2 class="s-head">The <b>process</b></h2>
+    <div class="proc-grid">
+      <div class="proc-cell"><span class="proc-n">01</span><h3 class="proc-title">Understanding The Product</h3><p class="proc-desc">Materials, silhouettes, proportions and brand aesthetics carefully analysed before development begins.</p></div>
+      <div class="proc-cell"><span class="proc-n">02</span><h3 class="proc-title">Reference-Based Development</h3><p class="proc-desc">Visual direction established through references and moodboards. Strong references create stronger outcomes.</p></div>
+      <div class="proc-cell"><span class="proc-n">03</span><h3 class="proc-title">Visual Exploration</h3><p class="proc-desc">Multiple directions explored — environment, atmosphere, composition, styling — to identify the strongest creative opportunities.</p></div>
+      <div class="proc-cell"><span class="proc-n">04</span><h3 class="proc-title">Refinement</h3><p class="proc-desc">Iterative refinement with focus on product consistency, material appearance and overall presentation quality.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO DIRECTIONS -->
+<section id="directions">
+  <div class="wrap">
+    <div class="dir-intro">
+      <h2 class="dir-intro-h">Two creative<br><b>directions</b></h2>
+      <p class="dir-intro-text">Every brand has a different relationship with reality. We offer two distinct creative approaches — each with its own visual language, its own set of possibilities, and its own ideal applications.</p>
+    </div>
+    <div class="dir-cards">
+      <div class="dir-card">
+        <span class="dir-lbl">Direction 01</span>
+        <h3 class="dir-name"><b>Refined</b><br>Realism</h3>
+        <p class="dir-desc">Focused on realism, consistency and premium visual presentation. Maintains product integrity while elevating overall visual quality and atmosphere.</p>
+        <div class="dir-tags">
+          <span class="dir-tag">Websites</span><span class="dir-tag">E-Commerce</span><span class="dir-tag">Lookbooks</span><span class="dir-tag">Product Launches</span><span class="dir-tag">Commercial Campaigns</span>
+        </div>
+      </div>
+      <div class="dir-card">
+        <span class="dir-lbl">Direction 02</span>
+        <h3 class="dir-name"><b>Creative</b><br>Expansion</h3>
+        <p class="dir-desc">Focused on visual storytelling, campaign concepts and audience engagement. Embraces AI as a creative medium while maintaining a refined professional visual language.</p>
+        <div class="dir-tags">
+          <span class="dir-tag">Editorial</span><span class="dir-tag">Brand Communication</span><span class="dir-tag">Social Media</span><span class="dir-tag">Creative Launches</span><span class="dir-tag">Experimental Directions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY: REFINED REALISM -->
+<div class="gallery-section" id="gallery-rr" style="background:var(--bg);padding-top:96px">
+  <div class="gal-header">
+    <div class="gal-title-row">
+      <h2 class="gal-title">Direction 01 — <b>Refined Realism</b></h2>
+      <span class="gal-hint">Drag →</span>
+    </div>
+    <p class="gal-subtitle">Premium commercial fashion visuals — realism, quality and professional fashion communication suitable for websites, e-commerce, lookbooks and campaigns.</p>
+  </div>
+  <div class="h-track" id="rrTrack">
+    <div class="h-end"></div>
+  </div>
+  <div class="h-progress" style="background:var(--div);margin-bottom:0"><div class="h-thumb" id="rrThumb" style="background:var(--black)"></div></div>
+</div>
+
+<!-- GALLERY: CREATIVE EXPANSION -->
+<div class="gallery-section gal-dark" id="gallery-ce" style="padding-top:96px;padding-bottom:80px">
+  <div class="gal-header">
+    <div class="gal-title-row">
+      <h2 class="gal-title">Direction 02 — <b>Creative Expansion</b></h2>
+      <span class="gal-hint">Drag →</span>
+    </div>
+    <p class="gal-subtitle" style="color:rgba(255,255,255,.4)">Visual experimentation, creative storytelling and concept development — what becomes possible when creative exploration becomes part of the process.</p>
+  </div>
+  <div class="h-track" id="ceTrack">
+    <div class="h-end"></div>
+  </div>
+  <div class="h-progress" style="background:rgba(255,255,255,.1);margin-bottom:0"><div class="h-thumb" id="ceThumb" style="background:rgba(255,255,255,.5)"></div></div>
+</div>
+
+<!-- COLLABORATION -->
+<section id="collab">
+  <div class="wrap">
+    <span class="s-label">Project Collaboration</span>
+    <div class="collab-grid">
+      <div>
+        <h2 class="s-head" style="margin-bottom:16px">Every project<br>is <b>individual</b></h2>
+        <p class="collab-note">There is no fixed pricing model. After understanding the project goals, a detailed production estimate is prepared — scope, stages, timeline, deliverables and production cost. The objective is clarity before production begins.</p>
+        <p class="collab-stmt">"The process adapts to the project.<br>Not the other way around."</p>
+      </div>
+      <div>
+        <div class="collab-cols">
+          <div class="collab-col">
+            <div class="collab-col-t">Estimate includes</div>
+            <ul class="collab-list">
+              <li>Scope of Work</li><li>Development Stages</li><li>Timeline</li><li>Deliverables</li><li>Production Cost</li>
+            </ul>
+          </div>
+          <div class="collab-col">
+            <div class="collab-col-t">Based on</div>
+            <ul class="collab-list">
+              <li>Creative Complexity</li><li>Production Scope</li><li>Number of Assets</li><li>Motion Requirements</li><li>Delivery Requirements</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section id="delivery">
+  <div class="wrap">
+    <span class="s-label">Delivery & Production</span>
+    <div class="delivery-grid">
+      <div>
+        <h2 class="s-head" style="margin-bottom:16px">Production-ready<br><b>output</b></h2>
+        <p style="font-size:13px;line-height:1.85;color:var(--secondary);font-weight:300">Content prepared for commercial use and delivered in production-ready formats. Timelines determined individually according to project scope.</p>
+        <div class="res-tags"><span class="res-tag">4K</span><span class="res-tag">6K</span><span class="res-tag">8K</span></div>
+      </div>
+      <div>
+        <div class="del-cols">
+          <div class="del-col"><div class="del-col-t">Imagery</div><ul class="del-list"><li>High-Resolution Imagery</li><li>Campaign Visuals</li><li>Website Content</li><li>Social Media Assets</li></ul></div>
+          <div class="del-col"><div class="del-col-t">Motion</div><ul class="del-list"><li>Motion Content</li><li>AI Video</li><li>Animated Concepts</li><li>Storytelling Sequences</li></ul></div>
+          <div class="del-col"><div class="del-col-t">Materials</div><ul class="del-list"><li>Presentation Materials</li><li>Look Books</li><li>Advertising Creatives</li><li>Brand Visual Systems</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <span class="s-label" style="color:rgba(255,255,255,.25)">Contact</span>
+    <div class="contact-grid">
+      <h2 class="contact-h">Let's<br><b>work</b><br>together</h2>
+      <div>
+        <ul class="contact-links">
+          <li><a href="https://www.behance.net/d8a45029" target="_blank">Behance<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left:8px"><path d="M1 11L11 1M11 1H5M11 1V7" stroke="white" stroke-width=".9"/></svg></a></li>
+          <li><a href="mailto:almoyanedgar@gmail.com">almoyanedgar@gmail.com<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left:8px"><path d="M1 11L11 1M11 1H5M11 1V7" stroke="white" stroke-width=".9"/></svg></a></li>
+          <li><a href="https://wa.me/37477292004" target="_blank">WhatsApp — +374 77 292 004<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left:8px"><path d="M1 11L11 1M11 1H5M11 1V7" stroke="white" stroke-width=".9"/></svg></a></li>
+        </ul>
+        <p class="contact-loc">Armenia / Available Worldwide</p>
+      </div>
+    </div>
+    <div class="contact-foot">
+      <span class="foot-txt">© 2025 Fashion Visual Development</span>
+      <span class="foot-txt">AI-Assisted Creative Production</span>
+    </div>
+  </div>
+</section>
+
+<script>
+// ── Load images from uploads (passed via global imageData set by parent) ──
+// Since we're in an artifact, images are loaded via data URLs injected below.
+// The array maps index → upload order (1-based as sent by user).
+// ── Image paths ──
+const heroEl = document.getElementById('heroImg');
+heroEl.src = 'img/hero.jpg';
+heroEl.style.display = 'block';
+document.getElementById('heroBg').style.display = 'none';
+
+// Refined Realism — rr01 to rr20
+const rrTrackEl = document.getElementById('rrTrack');
+const rrEnd = rrTrackEl.querySelector('.h-end');
+for(let i=1;i<=20;i++){
+  const n = String(i).padStart(2,'0');
+  const card = document.createElement('div');
+  card.className = 'gal-card';
+  card.innerHTML = `
+    <div class="gal-img-wrap">
+      <img src="img/rr${n}.jpg" alt="Refined Realism ${n}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .7s cubic-bezier(.25,.46,.45,.94)">
+    </div>
+    <div class="gal-cap">
+      <div class="gal-cap-t">Visual ${n}</div>
+      <div class="gal-cap-s">Refined Realism</div>
+    </div>`;
+  rrTrackEl.insertBefore(card, rrEnd);
+}
+
+// Creative Expansion — ce01 to ce20
+const ceTrackEl = document.getElementById('ceTrack');
+const ceEnd = ceTrackEl.querySelector('.h-end');
+for(let i=1;i<=20;i++){
+  const n = String(i).padStart(2,'0');
+  const card = document.createElement('div');
+  card.className = 'gal-card';
+  card.innerHTML = `
+    <div class="gal-img-wrap">
+      <img src="img/ce${n}.jpg" alt="Creative Expansion ${n}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .7s cubic-bezier(.25,.46,.45,.94)">
+    </div>
+    <div class="gal-cap">
+      <div class="gal-cap-t">Visual ${n}</div>
+      <div class="gal-cap-s">Creative Expansion</div>
+    </div>`;
+  ceTrackEl.insertBefore(card, ceEnd);
+}
+
+// Re-observe new cards for fade-in
+document.querySelectorAll('.gal-card').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(10px)';
+  el.style.transition='opacity .55s ease,transform .55s ease';
+  io.observe(el);
+});
+
+// ── NAV ──
+const nav=document.getElementById('nav');
+const introEl=document.getElementById('intro');
+function updateNav(){
+  const ib=introEl.getBoundingClientRect().bottom;
+  if(ib>52){nav.classList.add('nav-dark');nav.classList.remove('nav-scrolled')}
+  else{nav.classList.remove('nav-dark');nav.classList.add('nav-scrolled')}
+  if(window.scrollY>40&&ib<=52) nav.classList.add('nav-scrolled');
+}
+window.addEventListener('scroll',updateNav,{passive:true});
+updateNav();
+
+// ── DRAG SCROLL ──
+function makeDrag(el){
+  let dn=false,sx=0,sl=0;
+  el.addEventListener('mousedown',e=>{dn=true;sx=e.pageX;sl=el.scrollLeft;el.style.userSelect='none'});
+  document.addEventListener('mouseup',()=>{dn=false;el.style.userSelect=''});
+  el.addEventListener('mousemove',e=>{if(!dn)return;e.preventDefault();el.scrollLeft=sl-(e.pageX-sx)});
+  el.addEventListener('touchstart',e=>{sx=e.touches[0].pageX;sl=el.scrollLeft},{passive:true});
+  el.addEventListener('touchmove',e=>{el.scrollLeft=sl-(e.touches[0].pageX-sx)},{passive:true});
+}
+
+function bindProgress(trackId,thumbId){
+  const t=document.getElementById(trackId),th=document.getElementById(thumbId);
+  if(!t||!th)return;
+  makeDrag(t);
+  t.addEventListener('scroll',()=>{
+    const max=t.scrollWidth-t.clientWidth;
+    const p=max>0?t.scrollLeft/max:0;
+    th.style.width=(p*100)+'%';
+  },{passive:true});
+}
+bindProgress('rrTrack','rrThumb');
+bindProgress('ceTrack','ceThumb');
+
+// ── FADE IN ──
+const io=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>{e.target.style.opacity='1';e.target.style.transform='none'},i*35);
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.06});
+document.querySelectorAll('.cap-cell,.proc-cell,.dir-card,.collab-col,.del-col,.gal-card,.scope-item').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(10px)';
+  el.style.transition='opacity .55s ease,transform .55s ease';
+  io.observe(el);
+});
+
+
+</script>
+</body>
+</html>
